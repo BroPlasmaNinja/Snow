@@ -15,32 +15,53 @@ public class SnowController : MonoBehaviour
 
 
         transform.position += transform.forward * Time.deltaTime * speed;
-        if (Input.GetKeyDown(KeyCode.D) || rotatingR)
+        if (Input.GetKeyDown(KeyCode.D) && !rotatingR && !rotatingL)
         {
-            rotatingR = true;
-            Right();
+            CurrentAngleY = 0;
+            rotatingL = true; // pravo
         }
-        if (Input.GetKeyDown(KeyCode.A) || rotatingL)
+
+        
+        if (Input.GetKeyDown(KeyCode.A) && !rotatingL && !rotatingR)
         {
-            
-            rotatingL = true;
+            CurrentAngleY = 0;
+            rotatingR = true; // levo
+        }
+
+        if (rotatingL)
+        {
             Left();
+        }
+        if(rotatingR)
+        {
+            Right();
         }
 
     }
     private void Left()
     {
-        if (!rotatingL || CurrentAngleY >= 90) { rotatingL = false; return; }
+        if (!rotatingL || CurrentAngleY >= 90) {
+            transform.Rotate(new Vector3(0, 90 - CurrentAngleY, 0));
+            rotatingL = false; 
+            return; 
+            
+        }
         float angle = RotationSpeed * Time.deltaTime;
-        Debug.Log($"dEBUG {transform.rotation.eulerAngles.y + RotationSpeed * Time.deltaTime}");
         transform.Rotate(new Vector3(0,  angle, 0));
         CurrentAngleY += angle;
         
     }
     private void Right()
     {
-        /*if (!rotatingL || transform.rotation.eulerAngles.y == 90) { Debug.Log("g"); rotatingL = false; return; }
-        Debug.Log($"dEBUG {transform.rotation.eulerAngles.y + RotationSpeed * Time.deltaTime}");
-        transform.Rotate(new Vector3(0, -RotationSpeed * Time.deltaTime, 0));*/
+        if (!rotatingR || CurrentAngleY <= -90)
+        {
+            transform.Rotate(new Vector3(0, -90 - CurrentAngleY, 0));
+            rotatingR = false;
+            return;
+
+        }
+        float angle = -RotationSpeed * Time.deltaTime;
+        transform.Rotate(new Vector3(0, angle, 0));
+        CurrentAngleY += angle;
     }
 }
