@@ -17,8 +17,12 @@ public class SnowController : MonoBehaviour
         transform.position += transform.forward * Time.deltaTime * speed;
         if (Input.GetKeyDown(KeyCode.D) && !rotatingR && !rotatingL)
         {
+<<<<<<< HEAD
             CurrentAngleY = 0;
             rotatingL = true; // pravo
+=======
+            Right();
+>>>>>>> main
         }
 
         
@@ -40,6 +44,7 @@ public class SnowController : MonoBehaviour
     }
     private void Left()
     {
+<<<<<<< HEAD
         if (!rotatingL || CurrentAngleY >= 90) {
             transform.Rotate(new Vector3(0, 90 - CurrentAngleY, 0));
             rotatingL = false; 
@@ -63,5 +68,12 @@ public class SnowController : MonoBehaviour
         float angle = -RotationSpeed * Time.deltaTime;
         transform.Rotate(new Vector3(0, angle, 0));
         CurrentAngleY += angle;
+=======
+        transform.Rotate(0,-90,0);   
+    }
+    private void Right()
+    {
+        transform.Rotate(0, 90, 0);
+>>>>>>> main
     }
 }
