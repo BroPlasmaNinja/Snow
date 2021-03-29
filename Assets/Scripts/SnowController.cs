@@ -17,30 +17,20 @@ public class SnowController : MonoBehaviour
         transform.position += transform.forward * Time.deltaTime * speed;
         if (Input.GetKeyDown(KeyCode.D) || rotatingR)
         {
-            rotatingR = true;
             Right();
         }
         if (Input.GetKeyDown(KeyCode.A) || rotatingL)
         {
-            
-            rotatingL = true;
             Left();
         }
 
     }
     private void Left()
     {
-        if (!rotatingL || CurrentAngleY >= 90) { rotatingL = false; return; }
-        float angle = RotationSpeed * Time.deltaTime;
-        Debug.Log($"dEBUG {transform.rotation.eulerAngles.y + RotationSpeed * Time.deltaTime}");
-        transform.Rotate(new Vector3(0,  angle, 0));
-        CurrentAngleY += angle;
-        
+        transform.Rotate(0,-90,0);   
     }
     private void Right()
     {
-        /*if (!rotatingL || transform.rotation.eulerAngles.y == 90) { Debug.Log("g"); rotatingL = false; return; }
-        Debug.Log($"dEBUG {transform.rotation.eulerAngles.y + RotationSpeed * Time.deltaTime}");
-        transform.Rotate(new Vector3(0, -RotationSpeed * Time.deltaTime, 0));*/
+        transform.Rotate(0, 90, 0);
     }
 }
