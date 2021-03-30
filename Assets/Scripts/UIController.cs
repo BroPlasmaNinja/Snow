@@ -19,53 +19,70 @@ public class UIController : MonoBehaviour
     public Text scoreGame;
     public Text scoreMenu;
 
+    public Text fps;
+    float deltaTime;
+
     // Start is called before the first frame update
     void Start()
     {
-        //Quit.onClick.AddListener(delegate () { QuitFunction(); });
-        //Quit.onClick.AddListener(delegate () { reStartFunction(); });
+        Quit.onClick.AddListener(delegate () { QuitFunction(); });
+        reStart.onClick.AddListener(delegate () { reStartFunction(); });
     }
 
-    // Update is called once per frame
-    //void Update()
-    //{   
-    //    if(Input.GetKeyDown(KeyCode.Escape))
-    //    {
-    //        escapePresses++;
-    //    }
-    //    escapePresses = escapePresses % 2;
+      
+     void Update()
+     {
+        deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
+        float framesPerSecond = 1.0f / deltaTime;
+        fps.text = $"FPS: {Mathf.Ceil(framesPerSecond)}";
 
-    //    if(alive == false)
-    //    {
-    //        escapePresses = 1;   
-    //    }
+        if (Input.GetKeyDown(KeyCode.Escape))
+         {
+             escapePresses++;
+         }
+         escapePresses = escapePresses % 2;
+     
+         if(alive == false)
+         {
+             escapePresses = 1;   
+         }
+     
+         if(escapePresses == 1)
+         {
+            //ПАУЗА
+             gamePanel.SetActive(false);
+             menuPanel.SetActive(true);
+         } else
+         {
+            //НЕ пауза
+            //прости
+            gamePanel.SetActive(true);
+            menuPanel.SetActive(false);
+         }
 
-    //    if(escapePresses == 1)
-    //    {
-    //        gamePanel.SetActive(false);
-    //        menuPanel.SetActive(true);
-    //    }
-    //} 
-    //void QuitFunction()
-    //{
-    //    Application.Quit();
-    //}
-    //void reStartFunction()
-    //{
-    //    reStart.transform.GetChild(1).gameObject.GetComponent<Text>().text = "Restart";
-        
-    //    //сам пиши сука мне лень
-    //}
-
-    //void MenuHandle()
-    //{
-    //    if (escapePresses != 1) return;
-    //    scoreMenu.text = $"{score}";
-
-    //}
-
-    //void GameHandle()
-    //{
-    //    if (escapePresses != 0) return;
-    //}
+        MenuHandle();
+        GameHandle();
+     } 
+     void QuitFunction()
+     {
+         Application.Quit();
+     }
+     void reStartFunction()
+     {
+         reStart.transform.GetChild(0).gameObject.GetComponent<Text>().text = "Restart";
+         escapePresses = 0;
+         //сам пиши сука мне лень
+     }
+     
+     void MenuHandle()
+     {
+         if (escapePresses != 1) return;
+         scoreMenu.text = $"{score}";
+     
+     }
+     
+     void GameHandle()
+     {
+         if (escapePresses != 0) return;
+     }
 }
