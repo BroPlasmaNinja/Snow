@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\SnowController.cs" />
     <Compile Include="Assets\Scripts\UIController.cs" />
+    <Compile Include="Assets\Scripts\Cell.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
