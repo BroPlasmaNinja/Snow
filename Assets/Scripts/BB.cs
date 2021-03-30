@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BB : MonoBehaviour
 {
-    enum dir
+    public enum dir
     {
         right,
         left,
@@ -12,4 +12,13 @@ public class BB : MonoBehaviour
         down
     }
     [SerializeField] dir Dir = dir.right;
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            GetComponentInParent<MapController>().OnBorderEnter(Dir);
+            Debug.Log(Dir + "\n" + other.name);
+        }
+
+    }
 }
