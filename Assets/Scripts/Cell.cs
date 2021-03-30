@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
-    [SerializeField] int dmg;
-    [SerializeField] int speed;
-    [SerializeField] GameObject Model;
+    [SerializeField] public int dmg = 0;
+    [SerializeField] public int speed = 1;
+    [SerializeField] public GameObject Model;
+    [SerializeField] [Range(0, 100)] public int chance = 80;
 }

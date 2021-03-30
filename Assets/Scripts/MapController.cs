@@ -4,44 +4,60 @@ using UnityEngine;
 
 public class MapController : MonoBehaviour
 {
-    GameObject BigCell;
-    bool right, left, up, down;
+    private GameObject BigCell;
+    private bool right, left, up, down;
+    [SerializeField] int MapSize = 20;
+    Cell[,] MyMap;
+    [SerializeField] Cell[] AllCells;
+
     private void Start()
     {
+        MyMap = new Cell[MapSize, MapSize];
         BigCell = gameObject;
+
+        for(int i = 0; i < MapSize; i++)
+        {
+            for(int j = 0; j < MapSize; j++)
+            {
+                MyMap[i, j] = gg(AllCells);
+                float x = 5f * (i - MapSize / 2f)+2.5f;
+                float z = 5f * (j - MapSize / 2f)+2.5f;
+                Instantiate(MyMap[i,j].Model,new Vector3(x+Random.Range(-2,2),transform.position.y,z + Random.Range(-2, 2)),new Quaternion(0,0,0,0),transform.GetChild(4));
+            }
+        }
     }
     public void OnBorderEnter(BB.dir Dir)
     {
         if(Dir == BB.dir.up && !up)
         {
             GameObject gg = Instantiate(BigCell, new Vector3 (transform.position.x,transform.position.y,transform.position.z + transform.localScale.z*10), new Quaternion(0, 0, 0, 0));
-            StartCoroutine(Da(gg.transform.GetChild(3).position));
+            //StartCoroutine(wherePos(gg.transform.GetChild(3).position));
             up = true;
             gg.GetComponent<MapController>().down = true;
         }
         if(Dir == BB.dir.down && !down)
         {
             GameObject gg = Instantiate(BigCell, new Vector3 (transform.position.x,transform.position.y,transform.position.z - transform.localScale.z*10), new Quaternion(0, 0, 0, 0));
-            StartCoroutine(Da(gg.transform.GetChild(2).position));
+            //StartCoroutine(wherePos(gg.transform.GetChild(2).position));
             down = true;
             gg.GetComponent<MapController>().up = true;
         }
         if(Dir == BB.dir.right && !right)
         {
             GameObject gg = Instantiate(BigCell, new Vector3 (transform.position.x + transform.localScale.x * 10, transform.position.y,transform.position.z), new Quaternion(0, 0, 0, 0));
-            StartCoroutine(Da(gg.transform.GetChild(1).position));
+            //StartCoroutine(wherePos(gg.transform.GetChild(1).position));
             left = true;
             gg.GetComponent<MapController>().left = true;
         }
         if(Dir == BB.dir.left && !left)
         {
             GameObject gg = Instantiate(BigCell, new Vector3 (transform.position.x - transform.localScale.x * 10, transform.position.y,transform.position.z), new Quaternion(0, 0, 0, 0));
-            StartCoroutine(Da(gg.transform.GetChild(0).position));
+            //StartCoroutine(wherePos(gg.transform.GetChild(0).position));
             right = true;
             gg.GetComponent<MapController>().right = true;
         }
     }
-    IEnumerator Da(Vector3 pos)
+    IEnumerator wherePos(Vector3 pos)
     {
         while (true)
         {
@@ -49,5 +65,23 @@ public class MapController : MonoBehaviour
             Debug.Log("Draw");
             yield return new WaitForSeconds(0.01f);
         }
+    }
+    Cell gg(Cell[] da)
+    {
+        int CountOfChance = 0;
+        for(int i = 0; i < da.Length; i++)
+        {
+            CountOfChance += da[i].chance;
+        }
+        CountOfChance = Random.Range(1,CountOfChance+1);
+        for (int i = 0;i < da.Length; i++)
+        {
+            CountOfChance -= da[i].chance;
+            if (CountOfChance <= 0)
+                return da[i];
+        }
+        Debug.LogWarning("Рандом не зарандомил поэтому дефолт");
+        Cell Def = new Cell();
+        return Def;
     }
 }
