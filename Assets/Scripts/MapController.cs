@@ -4,17 +4,15 @@ using UnityEngine;
 
 public class MapController : MonoBehaviour
 {
-    private GameObject BigCell;
+    [SerializeField] private GameObject BigCell;
     private bool right, left, up, down;
     [SerializeField] int MapSize = 20;
-    Cell[,] MyMap;
-    [SerializeField] Cell[] AllCells;
+    GameObject[,] MyMap;
+    [SerializeField] GameObject[] AllCells;
 
     private void Start()
     {
-        MyMap = new Cell[MapSize, MapSize];
-        BigCell = gameObject;
-
+        MyMap = new GameObject[MapSize, MapSize];
         for(int i = 0; i < MapSize; i++)
         {
             for(int j = 0; j < MapSize; j++)
@@ -22,7 +20,7 @@ public class MapController : MonoBehaviour
                 MyMap[i, j] = gg(AllCells);
                 float x = 5f * (i - MapSize / 2f)+2.5f;
                 float z = 5f * (j - MapSize / 2f)+2.5f;
-                Instantiate(MyMap[i,j].Model,new Vector3(x+Random.Range(-2,2),transform.position.y,z + Random.Range(-2, 2)),new Quaternion(0,0,0,0),transform.GetChild(4));
+                Instantiate(MyMap[i,j],new Vector3(x+Random.Range(-2,2),transform.position.y,z + Random.Range(-2, 2)),new Quaternion(0,0,0,0),transform.GetChild(4));
             }
         }
     }
@@ -66,22 +64,29 @@ public class MapController : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
     }
-    Cell gg(Cell[] da)
+    GameObject gg(GameObject[] da)
     {
         int CountOfChance = 0;
         for(int i = 0; i < da.Length; i++)
         {
-            CountOfChance += da[i].chance;
+            CountOfChance += da[i].GetComponent<Cell>().chance;
         }
         CountOfChance = Random.Range(1,CountOfChance+1);
         for (int i = 0;i < da.Length; i++)
         {
-            CountOfChance -= da[i].chance;
+            CountOfChance -= da[i].GetComponent<Cell>().chance;
             if (CountOfChance <= 0)
                 return da[i];
         }
         Debug.LogWarning("Рандом не зарандомил поэтому дефолт");
-        Cell Def = new Cell();
+        GameObject Def = new GameObject();
         return Def;
     }
+    /*void KillChilds(Transform Parent)
+    {
+        for(int i = 0; i < Parent.childCount; i++)
+        {
+            Destroy(Parent.transform.GetChild(0).gameObject);
+        }
+    }*/
 }

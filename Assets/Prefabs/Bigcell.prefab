@@ -287,6 +287,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76f758a95d8d3384bb32b02c75e40d5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BigCell: {fileID: 912713451174386949}
+  MapSize: 20
+  AllCells:
+  - {fileID: 6681530939814309183, guid: 4e5d49de14d9f7d40a976f9fa4bf34fb, type: 3}
+  - {fileID: 6681530939814309183, guid: a8c3f1fe2962ee845922ef8d5d1e331d, type: 3}
+  - {fileID: 6681530939814309183, guid: 288a1703edf234d40aec8cde72241ca4, type: 3}
 --- !u!1 &912713451839711507
 GameObject:
   m_ObjectHideFlags: 0
