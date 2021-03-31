@@ -57,7 +57,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99bda6626d1bb48419ab1e28d44da07e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BigCell: {fileID: 8665434609026398956}
   Dir: 3
+  Job: 0
 --- !u!1 &8665434609026398956
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,7 +109,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76f758a95d8d3384bb32b02c75e40d5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BigCell: {fileID: 8665434609026398956}
   MapSize: 20
   AllCells:
   - {fileID: 6681530939814309183, guid: 4e5d49de14d9f7d40a976f9fa4bf34fb, type: 3}
@@ -266,7 +267,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99bda6626d1bb48419ab1e28d44da07e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BigCell: {fileID: 8665434609026398956}
   Dir: 0
+  Job: 0
 --- !u!1 &8665434609674339297
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,7 +327,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99bda6626d1bb48419ab1e28d44da07e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BigCell: {fileID: 8665434609026398956}
   Dir: 2
+  Job: 0
 --- !u!1 &8665434609988636970
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,7 +387,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99bda6626d1bb48419ab1e28d44da07e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BigCell: {fileID: 8665434609026398956}
   Dir: 1
+  Job: 0
 --- !u!1 &8665434610331063958
 GameObject:
   m_ObjectHideFlags: 0
