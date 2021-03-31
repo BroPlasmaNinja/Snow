@@ -36,7 +36,7 @@ public class UIController : MonoBehaviour
         float framesPerSecond = 1.0f / deltaTime;
         fps.text = $"FPS: {Mathf.Ceil(framesPerSecond)}";
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && alive)
          {
              escapePresses++;
          }
@@ -60,6 +60,12 @@ public class UIController : MonoBehaviour
             menuPanel.SetActive(false);
          }
 
+         if(score < 0)
+         {
+            alive = false;
+            escapePresses = 1;
+         }
+
         MenuHandle();
         GameHandle();
      } 
@@ -69,12 +75,16 @@ public class UIController : MonoBehaviour
      }
      void reStartFunction()
      {
-         reStart.transform.GetChild(0).gameObject.GetComponent<Text>().text = "Restart";
-         escapePresses = 0;
+        Application.LoadLevel(0);
          //сам пиши сука мне лень
      }
-     
-     void MenuHandle()
+
+    private void OnLevelWasLoaded(int level)
+    {
+        escapePresses = 0;
+    }
+
+    void MenuHandle()
      {
          if (escapePresses != 1) return;
          scoreMenu.text = $"{score}";

@@ -5,10 +5,12 @@ using System.Linq;
 
 public class SnowController : MonoBehaviour
 {
+    public UIController gameController;
+
     [SerializeField] private bool rotatingL;
     [SerializeField] private bool rotatingR;
 
-    [SerializeField] float speed;
+    [SerializeField] public float speed;
     [SerializeField] float RotationSpeed = 90;
     [SerializeField] float CurrentAngleY;
     [SerializeField] float targetDegree = 0;
@@ -23,11 +25,13 @@ public class SnowController : MonoBehaviour
 
     private void Start()
     {
+        gameController = FindObjectOfType<UIController>();
         Directions = new float[4] { 0, 90, 180, 270 };
     }
 
     private void Update()
     {
+        if (gameController.escapePresses == 1) return;
         transform.position += transform.forward * Time.deltaTime * speed;
         if (Input.GetKeyDown(KeyCode.D) && !rotatingR)
         {

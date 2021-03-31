@@ -25,15 +25,7 @@ public class MapController : MonoBehaviour
         }
         Debug.LogWarning("йнмеж");
     }
-    IEnumerator wherePos(Vector3 pos)
-    {
-        while (true)
-        {
-            Debug.DrawRay(pos, new Vector3(0, 10, 0), Color.green);
-            Debug.Log("Draw");
-            yield return new WaitForSeconds(0.01f);
-        }
-    }
+
     GameObject gg(GameObject[] da)
     {
         int CountOfChance = 0;

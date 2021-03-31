@@ -22,31 +22,52 @@ public class BB : MonoBehaviour
             if (Dir == BB.dir.up && !Job)
             {
                 GameObject gg = Instantiate(BigCell, new Vector3(transform.position.x, transform.position.y, transform.GetComponentInParent<Transform>().position.z + 100 - 43.5f), new Quaternion(0, 0, 0, 0));
-                //StartCoroutine(wherePos(gg.transform.GetChild(3).position));
+                StartCoroutine(wherePos(gg.transform.GetChild(3).position));
                 Job = true;
                 gg.transform.GetChild(3).GetComponent<BB>().Job = true;
+                gg.transform.GetChild(2).GetComponent<BB>().Job = false;
+                gg.transform.GetChild(1).GetComponent<BB>().Job = false;
+                gg.transform.GetChild(0).GetComponent<BB>().Job = false;
             }
             if (Dir == BB.dir.down && !Job)
             {
                 GameObject gg = Instantiate(BigCell, new Vector3(transform.position.x, transform.position.y, transform.GetComponentInParent<Transform>().position.z - 100 + 43.5f), new Quaternion(0, 0, 0, 0));
-                //StartCoroutine(wherePos(gg.transform.GetChild(2).position));
+                StartCoroutine(wherePos(gg.transform.GetChild(2).position));
                 Job = true;
+                gg.transform.GetChild(3).GetComponent<BB>().Job = false;
                 gg.transform.GetChild(2).GetComponent<BB>().Job = true;
+                gg.transform.GetChild(1).GetComponent<BB>().Job = false;
+                gg.transform.GetChild(0).GetComponent<BB>().Job = false;
             }
             if (Dir == BB.dir.right && !Job)
             {
                 GameObject gg = Instantiate(BigCell, new Vector3(transform.GetComponentInParent<Transform>().position.x + 100 - 43.5f, transform.position.y, transform.position.z), new Quaternion(0, 0, 0, 0));
-                //StartCoroutine(wherePos(gg.transform.GetChild(1).position));
+                StartCoroutine(wherePos(gg.transform.GetChild(1).position));
                 Job = true;
+                gg.transform.GetChild(3).GetComponent<BB>().Job = false;
+                gg.transform.GetChild(2).GetComponent<BB>().Job = false;
                 gg.transform.GetChild(1).GetComponent<BB>().Job = true;
+                gg.transform.GetChild(0).GetComponent<BB>().Job = false;
             }
             if (Dir == BB.dir.left && !Job)
             {
                 GameObject gg = Instantiate(BigCell, new Vector3(transform.GetComponentInParent<Transform>().position.x - 100 + 43.5f, transform.position.y, transform.position.z), new Quaternion(0, 0, 0, 0));
-                //StartCoroutine(wherePos(gg.transform.GetChild(0).position));
+                StartCoroutine(wherePos(gg.transform.GetChild(0).position));
                 Job = true;
+                gg.transform.GetChild(3).GetComponent<BB>().Job = false;
+                gg.transform.GetChild(2).GetComponent<BB>().Job = false;
+                gg.transform.GetChild(1).GetComponent<BB>().Job = false;
                 gg.transform.GetChild(0).GetComponent<BB>().Job = true;
             }
+        }
+    }
+    IEnumerator wherePos(Vector3 pos)
+    {
+        while (true)
+        {
+            Debug.DrawRay(pos, new Vector3(0, 10, 0), Color.green);
+            Debug.Log("Draw");
+            yield return new WaitForSeconds(0.01f);
         }
     }
 }
