@@ -84,5 +84,6 @@ public class UIController : MonoBehaviour
      void GameHandle()
      {
          if (escapePresses != 0) return;
-     }
+        scoreGame.text = $"{score}";
+    }
 }

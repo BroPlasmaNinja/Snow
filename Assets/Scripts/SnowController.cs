@@ -19,6 +19,8 @@ public class SnowController : MonoBehaviour
 
     [SerializeField] float lastRotation;
 
+    [SerializeField] bool rotating;
+
     private void Start()
     {
         Directions = new float[4] { 0, 90, 180, 270 };
@@ -31,13 +33,16 @@ public class SnowController : MonoBehaviour
         {
             rotatingL = false;
             rotatingR = true;
+            rotating = true;
             Direction++;
             targetDegree = Direction * 90;
         }
         if (Input.GetKeyDown(KeyCode.A) && !rotatingL)
         {
-            rotatingL = true;
             rotatingR = false;
+            rotatingL = true;
+
+            rotating = true;
             Direction--;
             targetDegree = Direction * 90;
         }
@@ -47,36 +52,42 @@ public class SnowController : MonoBehaviour
 
 
 
-        if(rotatingR)
-        {
-            Right();
-        }
-        if(rotatingL)
-        {
-            Left();
-        }
+        if (rotating) Rotate();
     }
-    void Right()
+    //void Right()
+    //{
+    //    float ang = RotationSpeed * Time.deltaTime;
+    //    if (LookingAt == Directions[Direction])
+    //    {
+    //        rotatingR = false;
+    //        return;
+    //    }
+    //    transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(new Vector3(0, Directions[Direction], 0)), ang);
+    //
+    //
+    //}
+    //void Left()
+    //{
+    //    float ang = RotationSpeed * Time.deltaTime;
+    //    if(LookingAt == Directions[Direction])
+    //    {
+    //        rotatingL = false;
+    //        return;
+    //    }
+    //    transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(new Vector3(0, Directions[Direction], 0)), ang);
+    //    
+    //}
+
+    void Rotate()
     {
         float ang = RotationSpeed * Time.deltaTime;
         if (LookingAt == Directions[Direction])
         {
+            rotatingL = false;
+            rotatingL = false;
             rotatingR = false;
             return;
         }
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(new Vector3(0, Directions[Direction], 0)), ang);
-
-
-    }
-    void Left()
-    {
-        float ang = RotationSpeed * Time.deltaTime;
-        if(LookingAt == Directions[Direction])
-        {
-            rotatingL = false;
-            return;
-        }
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(new Vector3(0, Directions[Direction], 0)), ang);
-        
     }
 }
