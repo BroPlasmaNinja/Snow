@@ -12,13 +12,29 @@ public class BB : MonoBehaviour
         down
     }
     [SerializeField] dir Dir = dir.right;
+    private bool right, left, up, down;
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
             GetComponentInParent<MapController>().OnBorderEnter(Dir);
             Debug.Log(Dir + "\n" + other.name);
-        }
+            if(Dir == dir.right)
+            {
 
+            }
+            if(Dir == dir.left)
+            {
+
+            }
+            if(Dir == dir.up)
+            {
+
+            }
+            if(Dir == dir.down)
+            {
+
+            }
+        }
     }
 }
