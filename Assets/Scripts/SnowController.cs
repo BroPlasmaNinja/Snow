@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class SnowController : MonoBehaviour
 {
@@ -10,58 +11,72 @@ public class SnowController : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float RotationSpeed = 90;
     [SerializeField] float CurrentAngleY;
-    void Update()
+    [SerializeField] float targetDegree = 0;
+
+    [SerializeField] long Direction = 0;
+    [SerializeField] float[] Directions;
+    [SerializeField] float LookingAt;
+
+    [SerializeField] float lastRotation;
+
+    private void Start()
     {
+        Directions = new float[4] { 0, 90, 180, 270 };
+    }
 
-
+    private void Update()
+    {
         transform.position += transform.forward * Time.deltaTime * speed;
-        if (Input.GetKeyDown(KeyCode.D) && !rotatingR && !rotatingL)
+        if (Input.GetKeyDown(KeyCode.D) && !rotatingR)
         {
-            CurrentAngleY = 0;
-            rotatingL = true; // pravo
+            rotatingL = false;
+            rotatingR = true;
+            Direction++;
+            targetDegree = Direction * 90;
         }
+        if (Input.GetKeyDown(KeyCode.A) && !rotatingL)
+        {
+            rotatingL = true;
+            rotatingR = false;
+            Direction--;
+            targetDegree = Direction * 90;
+        }
+        if (Direction == -1) Direction = 3;
+        if (Direction == 4) Direction = 0;
+        LookingAt = transform.rotation.eulerAngles.y;
 
-        
-        if (Input.GetKeyDown(KeyCode.A) && !rotatingL && !rotatingR)
-        {
-            CurrentAngleY = 0;
-            rotatingR = true; // levo
-        }
 
-        if (rotatingL)
-        {
-            Left();
-        }
+
         if(rotatingR)
         {
             Right();
         }
-
-    }
-    private void Left()
-    {
-        if (!rotatingL || CurrentAngleY >= 90) {
-            transform.Rotate(new Vector3(0, 90 - CurrentAngleY, 0));
-            rotatingL = false; 
-            return; 
-            
-        }
-        float angle = RotationSpeed * Time.deltaTime;
-        transform.Rotate(new Vector3(0,  angle, 0));
-        CurrentAngleY += angle;
-        
-    }
-    private void Right()
-    {
-        if (!rotatingR || CurrentAngleY <= -90)
+        if(rotatingL)
         {
-            transform.Rotate(new Vector3(0, -90 - CurrentAngleY, 0));
+            Left();
+        }
+    }
+    void Right()
+    {
+        float ang = RotationSpeed * Time.deltaTime;
+        if (LookingAt == Directions[Direction])
+        {
             rotatingR = false;
             return;
-
         }
-        float angle = -RotationSpeed * Time.deltaTime;
-        transform.Rotate(new Vector3(0, angle, 0));
-        CurrentAngleY += angle;  
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(new Vector3(0, Directions[Direction], 0)), ang);
+
+
+    }
+    void Left()
+    {
+        float ang = RotationSpeed * Time.deltaTime;
+        if(LookingAt == Directions[Direction])
+        {
+            rotatingL = false;
+            return;
+        }
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(new Vector3(0, Directions[Direction], 0)), ang);
+        
     }
 }
